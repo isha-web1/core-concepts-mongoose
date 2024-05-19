@@ -9,15 +9,24 @@ export type Guardian = {
     motherContactNo : string
 }
 
+export type UserName = {
+    firstName : string;
+    middleName : string;
+    lastName : string
+}
+
+export type LocalGuardian = {
+    name : string;
+    occupation : string;
+    contactNo : string;
+    address : string
+}
+
 
 export type Student = {
     id : string;
-    name : {
-        firstName : string;
-        middleName : string;
-        lastName : string
-    }
-    dateOfBirth : string
+    name : UserName
+    dateOfBirth? : string
     gender : "male" | "female";
     contactNo : string;
     emergencyNo : string;
@@ -26,4 +35,7 @@ export type Student = {
     presentAddress : string;
     permanentAddress : string;
     guardian: Guardian
+    localGuardian : LocalGuardian
+    profileImg? : string
+    isActive : "active" | "inActive"
 }
