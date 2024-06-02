@@ -1,28 +1,44 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { studentService } from "./student.service";
 
-const createStudent = async(req : Request, res : Response) =>{
 
-   try{
-    const student = req.body
-    // will call service function to send this data
 
-    const result = await studentService.createStudentIntoDb(student)
 
-    // send response
-    res.status(200).json({
-        success : true,
-        message : 'student is created successfully',
-        data : result
 
-    })
 
-   }catch(error){
-    console.log(error)
-   }
-     
+const getAllStudent = async(req: Request, res: Response, next : NextFunction) =>{
+    try{
+        const result = await studentService.getAllStudentsFromDb()
+        res.status(200).json({
+            success : true,
+            message : 'student are retrieve successfully',
+            data : result
+    
+        })
+
+    }catch(error){
+        next(error)
+    }
+}
+
+const getSingleStudent = async(req : Request, res: Response, next:NextFunction) =>{
+    try{
+        const {studentId} = req.params;
+        const result = await studentService.getSingleStudentFromDb(studentId)
+        res.status(200).json({
+            success : true,
+            message : 'student is retrieve successfully',
+            data : result
+    
+        })
+
+    }catch(error){
+        next(error)
+    }
 }
 
 export const StudentController = {
-    createStudent
+    
+    getAllStudent,
+    getSingleStudent
 }
